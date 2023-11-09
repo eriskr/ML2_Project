@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot</title>
+    <style>
+        #chatbox {
+            width: 80%;
+            height: 300px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+        }
+
+        #user_input {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #send_button {
+            width: 20%;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chatbox">
+        <!-- Messages will be displayed here -->
+    </div>
+    <input type="text" id="user_input" autocomplete="off" placeholder="Type your message here...">
+    <button id="send_button">Send</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function scrollToBottom() {
+            var chatbox = document.getElementById('chatbox');
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        $(document).ready(function() {
+            $('#send_button').click(function() {
+                var userText = $('#user_input').val();
+                console.log('Sending message:', userText); // Log the message being sent
+                $('#chatbox').append('<div>User: ' + userText + '</div>');
+                scrollToBottom();
+                $('#user_input').val('');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/ask',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ message: userText }),
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log('Received response:', response); // Log the response
+                        $('#chatbox').append('<div>Bot: ' + response + '</div>');
+                        scrollToBottom();
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        console.log('Error details:', textStatus, errorThrown); // Log the error details
+                        $('#chatbox').append('<div>Bot: Sorry, I can\'t respond at the moment. Error: ' + xhr.responseText + '</div>');
+                        scrollToBottom();
+                    }
+                });
+            });
+
+            $('#user_input').keypress(function(e) {
+                if(e.which == 13) { // Enter key pressed
+                    $('#send_button').click(); // Trigger send button click event
+                }
+            });
+        });
+    </script>
+</body>
+</html>

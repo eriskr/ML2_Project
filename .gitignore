@@ -1,2 +1,2 @@
 .env
-pyvenv.cfg
+openai-env/pyvenv.cfg

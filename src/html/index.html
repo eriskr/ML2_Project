@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot</title>
+</head>
+<body>
+    <div id="chatbox">
+        <!-- Chat will be displayed here -->
+    </div>
+    <form id="chat-form">
+        <input type="text" id="message" autocomplete="off" placeholder="Say something...">
+        <button type="submit">Send</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function(){
+            $('#chat-form').on('submit', function(e){
+                e.preventDefault();
+                let message = $('#message').val();
+                $.post('/ask', {message: message}, function(response){
+                    // Append response to chatbox
+                    $('#chatbox').append('<div>User: ' + message + '</div>');
+                    $('#chatbox').append('<div>Bot: ' + response + '</div>');
+                    // Clear the message input
+                    $('#message').val('');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

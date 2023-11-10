@@ -2,36 +2,99 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Chatbot</title>
+    <title>Historical Chatbot</title>
     <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: #f8f1e7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #443a30;
+        }
+
+        #chat-container {
+            width: 400px;
+            background-color: #fff8ee;
+            border: 2px solid #443a30;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #instructions {
+            background-color: #8a7f67;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-size: 16px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            font-style: italic;
+        }
+
         #chatbox {
-            width: 80%;
             height: 300px;
-            border: 1px solid #ccc;
-            padding: 10px;
             overflow-y: scroll;
+            padding: 10px;
+            background-color: #fff8ee;
+        }
+
+        #chatbox div {
             margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #8a7f67;
+        }
+
+        .user-message {
+            text-align: right;
+            background-color: #e7f5ff;
+        }
+
+        .bot-message {
+            text-align: left;
+            background-color: #e8e0d6;
         }
 
         #user_input {
-            width: 70%;
+            width: calc(100% - 22px);
+            border: 1px solid #8a7f67;
             padding: 10px;
             font-size: 16px;
+            box-sizing: border-box;
         }
 
         #send_button {
-            width: 20%;
+            width: 100%;
+            background-color: #6b6651;
+            color: white;
             padding: 10px;
+            border: none;
             font-size: 16px;
+            cursor: pointer;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        #send_button:hover {
+            background-color: #5a5645;
         }
     </style>
 </head>
 <body>
-    <div id="chatbox">
-        <!-- Messages will be displayed here -->
+    <div id="chat-container">
+        <div id="instructions">
+            Welcome to the Historical Chatbot! Please enter the name of a historical figure to start the conversation.
+        </div>
+        <div id="chatbox">
+            <!-- Messages will be displayed here -->
+        </div>
+        <input type="text" id="user_input" autocomplete="off" placeholder="Type here...">
+        <button id="send_button">Send</button>
     </div>
-    <input type="text" id="user_input" autocomplete="off" placeholder="Type your message here...">
-    <button id="send_button">Send</button>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -43,8 +106,7 @@
         $(document).ready(function() {
             $('#send_button').click(function() {
                 var userText = $('#user_input').val();
-                console.log('Sending message:', userText); // Log the message being sent
-                $('#chatbox').append('<div>User: ' + userText + '</div>');
+                $('#chatbox').append('<div class="user-message">You: ' + userText + '</div>');
                 scrollToBottom();
                 $('#user_input').val('');
 
@@ -55,21 +117,19 @@
                     data: JSON.stringify({ message: userText }),
                     dataType: 'json',
                     success: function(response) {
-                        console.log('Received response:', response); // Log the response
-                        $('#chatbox').append('<div>Bot: ' + response + '</div>');
+                        $('#chatbox').append('<div class="bot-message">Bot: ' + response + '</div>');
                         scrollToBottom();
                     },
-                    error: function(xhr, textStatus, errorThrown) {
-                        console.log('Error details:', textStatus, errorThrown); // Log the error details
-                        $('#chatbox').append('<div>Bot: Sorry, I can\'t respond at the moment. Error: ' + xhr.responseText + '</div>');
+                    error: function(xhr) {
+                        $('#chatbox').append('<div class="bot-message">Bot: Sorry, I can\'t respond at the moment. Error: ' + xhr.responseText + '</div>');
                         scrollToBottom();
                     }
                 });
             });
 
             $('#user_input').keypress(function(e) {
-                if(e.which == 13) { // Enter key pressed
-                    $('#send_button').click(); // Trigger send button click event
+                if(e.which == 13) {
+                    $('#send_button').click();
                 }
             });
         });

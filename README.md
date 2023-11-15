@@ -7,9 +7,9 @@ To create your own version of this project you need to fork this repository and 
 
 What you need:
 
-- You need to create an OpenAI account and gain access to the OpenAI API to be able to use their model. OpenAI provides instructions on how to do this. You can follow this link for more information: https://platform.openai.com/docs/quickstart?context=python. This guide will show you how to create an API key and insert this into your project. You might need to pay some money to be able to send requests to the API. 
+- You need to create an OpenAI account and gain access to the OpenAI API to be able to use their models. OpenAI provides instructions on how to do this. You can follow this link for more information: https://platform.openai.com/docs/quickstart?context=python. This guide will show you how to create an API key and insert this into your project. You might need to pay some money to be able to send requests to the API. 
 
-- We installed Flask for this project. <br>
+- We installed Flask for this project. <br><br>
     On Windows:
     ```Python
     pip install flask

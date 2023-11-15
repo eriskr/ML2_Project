@@ -1,15 +1,15 @@
 # This is a simple application to simulate a conversation with a historical figure of your choice
 
 
-##### The application is solely based on the OpenAI API and ChatGPT. A simple HTML document provides the user interface where you can input your desired historical figure and start the conversation.
+The application is solely based on the OpenAI API and ChatGPT. A simple HTML document provides the user interface where you can input your desired historical figure and start the conversation.
 
-###### To create your own version of this project you need to fork this repository and walk through some steps to get it up and running.
+To create your own version of this project you need to fork this repository and walk through some steps to get it up and running.
 
-###### What you need:
+What you need:
 
-- You need to create an OpenAI account and gain access to the OpenAI API to be able to use their model. OpenAI provides instructions on how to do this. You can follow this link for more information: https://platform.openai.com/docs/quickstart?context=python
+- You need to create an OpenAI account and gain access to the OpenAI API to be able to use their model. OpenAI provides instructions on how to do this. You can follow this link for more information: https://platform.openai.com/docs/quickstart?context=python. This guide will show you how to create an API key and insert this into your project. You might need to pay some money to be able to send requests to the API. 
 
-- We also installed Flask for this project.
+- We installed Flask for this project. <br>
     On Windows:
     ```Python
     pip install flask

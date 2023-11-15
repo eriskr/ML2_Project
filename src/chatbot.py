@@ -40,13 +40,15 @@ def ask():
             return jsonify(f"You are now talking to {current_historical_figure}. What would you like to ask?")
 
         # Prepare the prompt for the OpenAI API call
-        prompt = (f"{current_historical_figure} is a chatbot designed to simulate a conversation with the historical figure. "
-                  f"They will respond to your questions as if they were alive today.\n\n"
-                  f"You: {user_message}\n{current_historical_figure}:")
+        prompt = (f"Imagine you are {current_historical_figure}, speaking in the present day. As {current_historical_figure}, "
+          f"you're sharing your thoughts, experiences, and insights in response to the user's questions. Your responses should be "
+          f"reflective of your historical knowledge, personal experiences, and unique perspective, just as if {current_historical_figure} were "
+          f"here to answer them. Engage in the conversation naturally and insightfully.\n\n"
+          f"Question: {user_message}\nResponse:")
 
         # Make the API call to OpenAI
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4",
             messages=[
                 {"role": "system", "content": f"You are {current_historical_figure}."},
                 {"role": "user", "content": user_message},

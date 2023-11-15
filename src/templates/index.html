@@ -120,7 +120,7 @@
                     data: JSON.stringify({ message: userText }),
                     dataType: 'json',
                     success: function(response) {
-                        $('#chatbox').append('<div class="bot-message">Bot: ' + response + '</div>');
+                        $('#chatbox').append('<div class="bot-message"> ' + response + '</div>');
                         scrollToBottom();
                     },
                     error: function(xhr) {
